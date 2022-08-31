@@ -1,63 +1,63 @@
-import React, { Component } from 'react'
+import React, { useState,useEffect} from 'react'
 import Newsitems from './Newsitems'
 import Spinner from './Spinner';
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export class News extends Component {
-  articles=[
-    {
-        "source": {
-            "id": "al-jazeera-english",
-            "name": "Al Jazeera English"
-        },
-        "author": "Abid Hussain",
-        "title": "Anger among Khan supporters in Pakistan as legal challenges mount",
-        "description": "Imran Khan’s supporters rally behind him over the government’s actions against the cricketing icon-turned-politician.",
-        "url": "http://www.aljazeera.com/news/2022/8/24/anger-among-khan-supporters-in-pakistan-as-legal-challenges-mount",
-        "urlToImage": "https://www.aljazeera.com/wp-content/uploads/2022/08/h_57872276.jpg?resize=1720%2C1080",
-        "publishedAt": "2022-08-24T11:04:06Z",
-        "content": "Islamabad, Pakistan As legal cases mount against former Pakistani Prime Minister Imran Khan, his supporters have expressed anger over the governments actions against the cricketing icon-turned-politi… [+4813 chars]"
-    },
-    {
-        "source": {
-            "id": "bbc-sport",
-            "name": "BBC Sport"
-        },
-        "author": "BBC Sport",
-        "title": "Shane Warne memorial - watch & follow updates",
-        "description": "Watch live coverage and follow text updates and tributes from the state memorial for Australian cricket legend Shane Warne at the Melbourne Cricket Ground.",
-        "url": "http://www.bbc.co.uk/sport/live/cricket/60916236",
-        "urlToImage": "https:////m.files.bbci.co.uk/modules/bbc-morph-sport-seo-meta/1.22.0/images/bbc-sport-logo.png",
-        "publishedAt": "2022-03-30T08:22:26.498888Z",
-        "content": "Former England bowler and BBC cricket presenter Isa Guha, who became a colleague of Warne's in the commentary box: \"It has been a strange few weeks - a lot of shock and then we did our own tribute at… [+396 chars]"
-    },
-    {
-        "source": {
-            "id": "espn-cric-info",
-            "name": "ESPN Cric Info"
-        },
-        "author": null,
-        "title": "PCB hands Umar Akmal three-year ban from all cricket | ESPNcricinfo.com",
-        "description": "Penalty after the batsman pleaded guilty to not reporting corrupt approaches | ESPNcricinfo.com",
-        "url": "http://www.espncricinfo.com/story/_/id/29103103/pcb-hands-umar-akmal-three-year-ban-all-cricket",
-        "urlToImage": "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg",
-        "publishedAt": "2020-04-27T11:41:47Z",
-        "content": "Umar Akmal's troubled cricket career has hit its biggest roadblock yet, with the PCB handing him a ban from all representative cricket for three years after he pleaded guilty of failing to report det… [+1506 chars]"
-    },
-    {
-        "source": {
-            "id": "espn-cric-info",
-            "name": "ESPN Cric Info"
-        },
-        "author": null,
-        "title": "What we learned from watching the 1992 World Cup final in full again | ESPNcricinfo.com",
-        "description": "Wides, lbw calls, swing - plenty of things were different in white-ball cricket back then | ESPNcricinfo.com",
-        "url": "http://www.espncricinfo.com/story/_/id/28970907/learned-watching-1992-world-cup-final-full-again",
-        "urlToImage": "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1219926_1296x729.jpg",
-        "publishedAt": "2020-03-30T15:26:05Z",
-        "content": "Last week, we at ESPNcricinfo did something we have been thinking of doing for eight years now: pretend-live ball-by-ball commentary for a classic cricket match. We knew the result, yes, but we tried… [+6823 chars]"
-    }
-] 
+const News = (props)=>{
+//   articles=[
+//     {
+//         "source": {
+//             "id": "al-jazeera-english",
+//             "name": "Al Jazeera English"
+//         },
+//         "author": "Abid Hussain",
+//         "title": "Anger among Khan supporters in Pakistan as legal challenges mount",
+//         "description": "Imran Khan’s supporters rally behind him over the government’s actions against the cricketing icon-turned-politician.",
+//         "url": "http://www.aljazeera.com/news/2022/8/24/anger-among-khan-supporters-in-pakistan-as-legal-challenges-mount",
+//         "urlToImage": "https://www.aljazeera.com/wp-content/uploads/2022/08/h_57872276.jpg?resize=1720%2C1080",
+//         "publishedAt": "2022-08-24T11:04:06Z",
+//         "content": "Islamabad, Pakistan As legal cases mount against former Pakistani Prime Minister Imran Khan, his supporters have expressed anger over the governments actions against the cricketing icon-turned-politi… [+4813 chars]"
+//     },
+//     {
+//         "source": {
+//             "id": "bbc-sport",
+//             "name": "BBC Sport"
+//         },
+//         "author": "BBC Sport",
+//         "title": "Shane Warne memorial - watch & follow updates",
+//         "description": "Watch live coverage and follow text updates and tributes from the state memorial for Australian cricket legend Shane Warne at the Melbourne Cricket Ground.",
+//         "url": "http://www.bbc.co.uk/sport/live/cricket/60916236",
+//         "urlToImage": "https:////m.files.bbci.co.uk/modules/bbc-morph-sport-seo-meta/1.22.0/images/bbc-sport-logo.png",
+//         "publishedAt": "2022-03-30T08:22:26.498888Z",
+//         "content": "Former England bowler and BBC cricket presenter Isa Guha, who became a colleague of Warne's in the commentary box: \"It has been a strange few weeks - a lot of shock and then we did our own tribute at… [+396 chars]"
+//     },
+//     {
+//         "source": {
+//             "id": "espn-cric-info",
+//             "name": "ESPN Cric Info"
+//         },
+//         "author": null,
+//         "title": "PCB hands Umar Akmal three-year ban from all cricket | ESPNcricinfo.com",
+//         "description": "Penalty after the batsman pleaded guilty to not reporting corrupt approaches | ESPNcricinfo.com",
+//         "url": "http://www.espncricinfo.com/story/_/id/29103103/pcb-hands-umar-akmal-three-year-ban-all-cricket",
+//         "urlToImage": "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1099495_800x450.jpg",
+//         "publishedAt": "2020-04-27T11:41:47Z",
+//         "content": "Umar Akmal's troubled cricket career has hit its biggest roadblock yet, with the PCB handing him a ban from all representative cricket for three years after he pleaded guilty of failing to report det… [+1506 chars]"
+//     },
+//     {
+//         "source": {
+//             "id": "espn-cric-info",
+//             "name": "ESPN Cric Info"
+//         },
+//         "author": null,
+//         "title": "What we learned from watching the 1992 World Cup final in full again | ESPNcricinfo.com",
+//         "description": "Wides, lbw calls, swing - plenty of things were different in white-ball cricket back then | ESPNcricinfo.com",
+//         "url": "http://www.espncricinfo.com/story/_/id/28970907/learned-watching-1992-world-cup-final-full-again",
+//         "urlToImage": "https://a4.espncdn.com/combiner/i?img=%2Fi%2Fcricket%2Fcricinfo%2F1219926_1296x729.jpg",
+//         "publishedAt": "2020-03-30T15:26:05Z",
+//         "content": "Last week, we at ESPNcricinfo did something we have been thinking of doing for eight years now: pretend-live ball-by-ball commentary for a classic cricket match. We knew the result, yes, but we tried… [+6823 chars]"
+//     }
+// ] 
 //     articles= [
 //     {
 //         "source": {
@@ -320,49 +320,48 @@ export class News extends Component {
 //         "content": "After a stellar two-year run, the housing market is sputtering as buyers pull back sharply. One real-estate chief said the market is indeed course-correcting, and its getting hard to make a deal as m… [+3832 chars]"
 //     }
 // ]
-   constructor(){
-        super();
-        this.state={
-            articles:[],
-            loading:false,
-            page:1,
-            totalResults:0
-        }
-    }
-    async UpdateFunction(){
-        this.props.setProgress(20)
-        let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page}&pageSize=${this.props.sizep}`;
+    const [articles, setarticles] = useState([]);
+    const [loading, setloading] = useState(true);
+    const [page, setpage] = useState(1);
+    const [totalResults, settotalResults] = useState(0)
+ 
+    const UpdateFunction=async ()=>{
+        props.setProgress(20)
+        let url=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page}&pageSize=${props.sizep}`;
         let data=await fetch(url)
-        this.props.setProgress(40)
+        props.setProgress(40)
         let parseddata=await data.json();
-        this.props.setProgress(70)
-        this.setState({
-            articles:parseddata.articles,
-            totalResults:parseddata.totalResults,
-            loading:false,
-        })
-        this.props.setProgress(100)
+        props.setProgress(70)
+        setarticles(parseddata.articles)
+        settotalResults(parseddata.totalResults)
+        setloading(false)
+        props.setProgress(100)
         console.log(url)
         
     }
-    async componentDidMount(){
-        this.UpdateFunction();
-        // this.setState({
-        //     loading:true
-        // })
-        // let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9d305f3dec324c1e8efdb5ee20653a43&page=${this.state.page}&pageSize=${this.props.sizep}`;
-        // let data=await fetch(url)
-        // let parseddata=await data.json();
-        // this.setState({articles:parseddata.articles,totalresult:parseddata.totalResults,loading:false})
-        // console.log(parseddata)
-    }
+    useEffect(() => {
+        document.title=`${capitalizeFirst(props.category)} - NewsApp`;
+        UpdateFunction();
+    }, [])
+    
+    // const componentDidMount=async()=>{{
+    //     this.UpdateFunction();
+    //     // this.setState({
+    //     //     loading:true
+    //     // })
+    //     // let url=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=9d305f3dec324c1e8efdb5ee20653a43&page=${this.state.page}&pageSize=${props.sizep}`;
+    //     // let data=await fetch(url)
+    //     // let parseddata=await data.json();
+    //     // this.setState({articles:parseddata.articles,totalresult:parseddata.totalResults,loading:false})
+    //     // console.log(parseddata)
+    // }
    
     // previouspage=async()=>{
     //     // console.log("Previous Page")
     //     // this.setState({
     //     //     loading:true
     //     // })
-    //     // let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9d305f3dec324c1e8efdb5ee20653a43&page=${this.state.page-1}&pageSize=${this.props.sizep}`;
+    //     // let url=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=9d305f3dec324c1e8efdb5ee20653a43&page=${this.state.page-1}&pageSize=${props.sizep}`;
     //     // let data=await fetch(url)
     //     // let parseddata=await data.json();
     //     // this.setState({
@@ -376,12 +375,12 @@ export class News extends Component {
     //     })
     // }
     // nextpage=async()=>{
-    //     // if(!(this.state.page+1>Math.ceil(this.state.totalresult/this.props.sizep))){
+    //     // if(!(this.state.page+1>Math.ceil(this.state.totalresult/props.sizep))){
     //     //     console.log("Next Page")
     //     //     this.setState({
     //     //         loading:true
     //     //     })
-    //     //     let url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=9d305f3dec324c1e8efdb5ee20653a43&page=${this.state.page+1}&pageSize=${this.props.sizep}`;
+    //     //     let url=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=9d305f3dec324c1e8efdb5ee20653a43&page=${this.state.page+1}&pageSize=${props.sizep}`;
     //     //     let data=await fetch(url)
     //     //     let parseddata=await data.json();
     //     //     this.setState({
@@ -397,46 +396,36 @@ export class News extends Component {
     //     this.UpdateFunction();
 
     //     }
-        fetchMoreData=async()=>{
-            this.setState({
-                page:this.state.page+1
-            })
-            const url=`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=${this.props.apiKey}&page=${this.state.page+1}&pageSize=${this.props.sizep}`;
+        const fetchMoreData=async()=>{
+            setpage(page+1)
+            const url=`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apiKey}&page=${page+1}&pageSize=${props.sizep}`;
             let data=await fetch(url)
             let parseddata=await data.json();
             console.log(url)
-            this.setState({
-                articles:this.state.articles.concat(parseddata.articles),
-                totalResults:parseddata.totalResults,
-                loading:false,
-                
-            })
-            
+            setarticles(articles.concat(parseddata.articles))
+            settotalResults(parseddata.totalResults)
+            setloading(false)
         }
-        capitalizeFirst = str => {
+        const capitalizeFirst = str => {
             return str.charAt(0).toUpperCase() + str.slice(1);
           };
-        
- 
-        
      
-    
-  render() {
+
     return (
       <>
-        <h1 className='text-center my-3 text-danger'>{this.capitalizeFirst(this.props.category)} Headlines</h1>
-        {this.state.loading&&<Spinner/>}
+        <h1 className='text-center my-3 text-danger'>{capitalizeFirst(props.category)} Headlines</h1>
+        {loading&&<Spinner/>}
          <InfiniteScroll
-          dataLength={this.state.articles.length}
-          next={this.fetchMoreData}
-          hasMore={this.state.articles.length!== this.state.totalResults}
+          dataLength={articles.length}
+          next={fetchMoreData}
+          hasMore={articles.length!==totalResults}
           loader={<Spinner/>}
         >
             <div className='container'>
 
            
             <div className='row align-items-stretch'>
-                {this.state.articles.map((e,index)=>{
+                {articles.map((e,index)=>{
             return <div className='col-md-4' key={index}>
                 <Newsitems title={e.title}
                 desc={e.description}  author={e.author} date={e.publishedAt} newsurl={e.url}
@@ -452,14 +441,14 @@ export class News extends Component {
 
         {/* <div className='row d-flex justify-content-between py-3'>
         <button type="button" disabled={this.state.page<=1} className="btn col-3 float-end btn-warning" onClick={this.previouspage}>&laquo; Previous</button>
-        <button type="button" disabled={this.state.page+1>Math.ceil(this.state.totalresult/this.props.sizep)} className="btn col-3 float-start btn-danger" onClick={this.nextpage}>Next &raquo;</button>
+        <button type="button" disabled={this.state.page+1>Math.ceil(this.state.totalresult/props.sizep)} className="btn col-3 float-start btn-danger" onClick={this.nextpage}>Next &raquo;</button>
         
         </div> */}
 
 
       </>
     )
-  }
+
 }
 
 export default News
